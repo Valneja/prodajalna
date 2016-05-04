@@ -149,12 +149,11 @@ var strankaIzRacuna = function(racunId, callback) {
 // Izpis računa v HTML predstavitvi na podlagi podatkov iz baze
 streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
   var napake = false;
+  
   var form = new formidable.IncomingForm();
   form.parse(zahteva, function(napaka1, polja, datoteke){
     strankaIzRacuna(polja.seznamRacunov, function(napaka2, stranka){
-      
         pesmiIzRacuna(polja.seznamRacunov, function(napaka3, pesmi){
-          
             if(napaka1){
               napake = true;
               console.log(napaka1);
@@ -175,7 +174,6 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
                 postavkeRacuna: pesmi
               });
             }
-           
         });
     });
   });
