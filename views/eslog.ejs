@@ -179,8 +179,8 @@
 					<NazivPartnerja3>Laboratorij za </NazivPartnerja3>
 					<NazivPartnerja4>podatkovne tehnologije</NazivPartnerja4>
 					-->
-					<NazivPartnerja1><%= stranka.FirstName + " " + stranka.LastName %></NazivPartnerja1>
-					<NazivPartnerja2><%= stranka.Company %></NazivPartnerja2>
+					<NazivPartnerja1><%= strankaPodatki.FirstName + " " + strankaPodatki.LastName %></NazivPartnerja1>
+					<NazivPartnerja2><%= strankaPodatki.Company %></NazivPartnerja2>
 				</NazivPartnerja>
 				<Ulica>
 					<!--
@@ -188,7 +188,7 @@
 					<Ulica2>113</Ulica2>
 					<Ulica3>nadstropje 2, kabinet R2.49</Ulica3>
 					-->
-					<Ulica1><%= stranka.Address %></Ulica1>
+					<Ulica1><%= strankaPodatki.Address %></Ulica1>
 				</Ulica>
 				<!--
 				<Kraj>Ljubljana</Kraj>
@@ -196,9 +196,9 @@
 				<PostnaStevilka>1000</PostnaStevilka>
 				<KodaDrzave>SI</KodaDrzave>
 				-->
-				<Kraj><%= stranka.City %></Kraj>
-				<NazivDrzave><%= stranka.Country %></NazivDrzave>
-				<PostnaStevilka><%= stranka.PostalCode %></PostnaStevilka>
+				<Kraj><%= strankaPodatki.City %></Kraj>
+				<NazivDrzave><%= strankaPodatki.Country %></NazivDrzave>
+				<PostnaStevilka><%= strankaPodatki.PostalCode %></PostnaStevilka>
 				<KodaDrzave></KodaDrzave>
 				
 			</NazivNaslovPodjetja>
@@ -248,14 +248,14 @@
 					<!--
 					<ImeOsebe>Dejan Lavbič</ImeOsebe>
 					-->
-					<ImeOsebe><%= stranka.FirstName +" "+ stranka.LastName +" ("+ stranka.Email +")" %></ImeOsebe>
+					<ImeOsebe><%= strankaPodatki.FirstName +" "+ strankaPodatki.LastName +" ("+ strankaPodatki.Email +")" %></ImeOsebe>
 				</KontaktnaOseba>
 				<Komunikacije>
 					<!--
 					<StevilkaKomunikacije>38614798000</StevilkaKomunikacije>
 					<VrstaKomunikacije>TE</VrstaKomunikacije>
 					-->
-					<StevilkaKomunikacije><%= stranka.Phone %></StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= strankaPodatki.Phone %></StevilkaKomunikacije>
 					<VrstaKomunikacije>TE</VrstaKomunikacije>
 				</Komunikacije>
 				<Komunikacije>
@@ -263,7 +263,7 @@
 					<StevilkaKomunikacije>38612419350</StevilkaKomunikacije>
 					<VrstaKomunikacije>FX</VrstaKomunikacije>
 					-->
-					<StevilkaKomunikacije><%= stranka.Fax %></StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= strankaPodatki.Fax %></StevilkaKomunikacije>
 					<VrstaKomunikacije>FX</VrstaKomunikacije>
 				</Komunikacije>
 			</KontaktiPodjetja>

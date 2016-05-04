@@ -150,6 +150,14 @@ var strankaIzRacuna = function(racunId, callback) {
     })
 }
 
+// Vrni podrobnosti o izbrani stranki
+var prijavljenaStranka = function(customerId, callback){
+  pb.all("SELECT Customer.* FROM Customer WHERE CustomerId = " + customerId, 
+  function(napaka, vrstice){
+      callback(napaka, vrstice);
+  })
+}
+
 // Izpis računa v HTML predstavitvi na podlagi podatkov iz baze
 streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
   var napake = false;
@@ -174,7 +182,7 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
               odgovor.setHeader('content-type', 'text/xml');
               odgovor.render('eslog', {
                 vizualiziraj: true,
-                stranka: stranka[0],
+                strankaPodatki: stranka[0],
                 postavkeRacuna: pesmi
               });
             }
@@ -185,20 +193,32 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
 
 // Izpis računa v HTML predstavitvi ali izvorni XML obliki
 streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
-  pesmiIzKosarice(zahteva, function(pesmi) {
-    if (!pesmi) {
-      odgovor.sendStatus(500);
-    } else if (pesmi.length == 0) {
-      odgovor.send("<p>V košarici nimate nobene pesmi, \
-        zato računa ni mogoče pripraviti!</p>");
-    } else {
-      odgovor.setHeader('content-type', 'text/xml');
-      odgovor.render('eslog', {
-        vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
-        postavkeRacuna: pesmi
-      })  
-    }
+  
+    pesmiIzKosarice(zahteva, function(pesmi) {
+      if (!pesmi) {
+        odgovor.sendStatus(500);
+      } else if (pesmi.length == 0) {
+        odgovor.send("<p>V košarici nimate nobene pesmi, \
+          zato računa ni mogoče pripraviti!</p>");
+      } else {
+       // console.log(zahteva.session.izbranaStranka);
+        prijavljenaStranka(zahteva.session.izbranaStranka, function(napaka, stranka){
+          if(napaka){
+            odgovor.sendStatus(500);
+          }
+          else{
+             odgovor.setHeader('content-type', 'text/xml');
+             odgovor.render('eslog', {
+            vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
+            postavkeRacuna: pesmi,
+            strankaPodatki: stranka[0]
+          })  
+          }
+         
+        })
+      }
   })
+  
 })
 
 // Privzeto izpiši račun v HTML obliki
